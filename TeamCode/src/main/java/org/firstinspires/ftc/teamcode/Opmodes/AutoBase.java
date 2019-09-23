@@ -40,6 +40,9 @@ package org.firstinspires.ftc.teamcode.Opmodes;
  */
 
 //robotcore (Internal)
+import android.content.Context;
+import android.util.AndroidException;
+
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -56,6 +59,10 @@ import org.firstinspires.ftc.robotcore.external.tfod.TFObjectDetector;
 import org.firstinspires.ftc.teamcode.HardwareProfiles.HardwareTestPlatform;
 import org.firstinspires.ftc.teamcode.Libs.DataLogger;
 import org.firstinspires.ftc.teamcode.Libs.DriveMecanum;
+import org.firstinspires.ftc.teamcode.Libs.PhoneSensors;
+import org.firstinspires.ftc.teamcode.Libs.PhoneSense;
+import android.content.Context;
+import android.app.Activity;
 
 //Java (Internal)
 import java.util.List;
@@ -145,11 +152,21 @@ public class AutoBase extends LinearOpMode {
 
     //region OpMode
     public void runOpMode() {
-        begin();
+        //begin();
+        telemetry.addData("Stop req", opMode.isStopRequested());
         telemetry.addData(">", "Press Play to start tracking");
         telemetry.update();
+
         waitForStart();
 
+        while(opMode.opModeIsActive()){
+            telemetry.addData("Stop req", opMode.isStopRequested());
+            telemetry.update();
+            sleep(100);
+        }
+        telemetry.addData("Stop req", opMode.isStopRequested());
+        telemetry.update();
+        sleep(100);
 
         /**
          * Start the opMode
